@@ -21,12 +21,8 @@
         <br>
         <button type="submit">계산하기</button>
     </form>
-
-    {% if price %}
-    <h3>{{paid}}원 - {{price}}원 = {{change}}원</h3>
-    <h3> 500원: {{coin500}}, 100원:{{coin100}}, 
-        50원: {{coin50}} 10원: {{coin10}}</h3>
-    {% endif %}
+    
+    {{render_html | default('') | safe}}
     
     
 

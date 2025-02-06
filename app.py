@@ -1,43 +1,58 @@
 from flask import Flask, render_template, request, redirect, url_for
 app = Flask(__name__)
 
+def get_unit_count(change , money_list):
+    
+    amount = change 
+    money_dict = {}
+    
+    for money in money_list:
+        money_dict[money] = amount//money
+        amount %= money
+    return money_dict
 
 @app.route('/', methods = ["GET","POST"])
 def index():
     if request.method == "POST":
-        print("POST 방식 접근")
+        print("😀POST 방식 접근")
         price = request.form.get("price")
         paid = request.form.get("paid")
         price, paid = int(price), int(paid)
-        print(f"지불 해야할 가격{price}")
-        print(f"지불한 가격{paid}")
+        print(f"😁지불 해야할 가격{price}")
+        print(f"😆지불한 가격{paid}")
         change = paid - price
-        print(f"거스름 돈 {change}")
-        COIN_500 = 500
-        coin500 = change//COIN_500
-        coin500_nmg = change%COIN_500
+        print(f"😊거스름 돈 {change}")
         
-        COIN_100 = 100
-        coin100 = coin500_nmg // COIN_100
-        coin100_nmg = coin500_nmg % COIN_100       
-        
-        COIN_50 = 50
-        coin50 = coin100_nmg // COIN_50
-        coin50_nmg = coin100_nmg % COIN_50
-        
-        COIN_10=10
-        coin10 = coin50_nmg // COIN_10
-        coin10_nmg = coin50_nmg % COIN_10
-    
-        print(f"동전 종류와 수")
-        print(f"500원: {coin500}, 100원: {coin100}, 50원: {coin50}, 10원: {coin10}")
-        return render_template("index.html", price = price, paid= paid, change = change,
-                               coin500=coin500, coin100=coin100, coin50=coin50, coin10= coin10)
+      
+        WON_50000 = 50000
+        WON_10000 = 10000
+        WON_5000 = 5000
+        WON_1000 = 1000
+        WON_500 = 500
+        WON_100 = 100
+        WON_50 = 50
+        WON_10 = 10
 
+        money_list = [WON_50000, WON_10000, WON_5000, WON_1000, WON_500, 
+                      WON_100, WON_50, WON_10]
+
+        money_dict = get_unit_count(change, money_list)
+       
+        for won, count in money_dict.items():
+            print(f"{won}원: {count}개")
+
+        render_html = '<h1>결과보기</h1>'
+        for won, count in money_dict.items():
+            render_html += f"{won}원: {count}개<br/>"       
+
+
+        return render_template("index.html", render_html = render_html)
+        
 
     else:
-        print("GET 방식으로 접근")
+        print("😳GET 방식으로 접근")
         return render_template("index.html")
+
 
 
 if __name__ == '__main__':  
