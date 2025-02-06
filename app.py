@@ -11,8 +11,12 @@ def get_unit_count(change , money_list):
         amount %= money
     return money_dict
 
-@app.route('/', methods = ["GET","POST"])
+@app.route("/")
 def index():
+    return render_template("index.html")
+
+@app.route('/won', methods = ["GET","POST"])
+def won():
     if request.method == "POST":
         print("😀POST 방식 접근")
         price = request.form.get("price")
@@ -46,12 +50,41 @@ def index():
             render_html += f"{won}원: {count}개<br/>"       
 
 
-        return render_template("index.html", render_html = render_html)
+        return render_template("exchange_won.html", render_html = render_html)
         
 
     else:
         print("😳GET 방식으로 접근")
-        return render_template("index.html")
+        return render_template("exchange_won.html")
+
+
+@app.route("/doller", methods = ["POST", "GET"])
+def doller():
+    if request.method == "POST":
+        paid = request.form.get("paid")
+        price = request.form.get("price")
+        paid, price = int(paid), int(price)
+        change = price / paid
+        change = int(change)
+        print(f"😆환율: {paid}")
+        print(f"😆환전할 금액: {price}")
+        print(f"환전한 달러: {change}")
+
+
+        money_list = [100, 50, 20, 10, 5, 2, 1]
+
+        money_dict = get_unit_count(change , money_list)
+        
+        render_html = "<h3>계산결과</h3>"
+        for doller, Currency in money_dict.items():
+            render_html += f"{doller}달러 지폐: {Currency}개</br>"
+        
+        return render_template("exchange_doller.html", render_html = render_html)
+
+
+    else:
+        return render_template("exchange_doller.html")
+
 
 
 

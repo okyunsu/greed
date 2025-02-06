@@ -6,25 +6,10 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>거스름돈 계산기</h1>
-    <form action="/" method="post">
-        
-        <div>
-            <label for="paid">지불 금액:</label>
-            <input type="number" id="paid" name="paid" required>
-        </div>
-        <br>
-        <div>
-            <label for="price">상품 가격:</label>
-            <input type="number" id="price" name="price" required>
-        </div>
-        <br>
-        <button type="submit">계산하기</button>
-    </form>
-    
-    {{render_html | default('') | safe}}
-    
-    
+    <h1>환전하려는 화폐종류를 선택하세요</h1>
+
+    <a href="/won"><h3>원화</h3></a>
+    <a href="/doller"><h3>달러화</h3></a>
 
 </body>
 </html>
