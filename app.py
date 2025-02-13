@@ -27,6 +27,11 @@ def won():
 def doller():
     return render_template("exchange/exchange_doller.html")
 
+@app.route("/yen")
+def yen():
+    return render_template("exchange/exchange_yen.html")
+
+
 
 
 @app.route('/exchange', methods = ["POST"])

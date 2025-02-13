@@ -12,6 +12,7 @@ class ExchangeService:
 
         currency_list = []
         currency_unit = ""
+        page = ""
 
         if exchange.currency == "USD":
             doller_list = self.get_doller_list()
@@ -24,8 +25,13 @@ class ExchangeService:
             currency_list = won_list
             currency_unit = '원'
             page = "exchange/exchange_won.html"
-
             print("원")
+        elif exchange.currency == "YEN": 
+            yen_list = self.get_yen_list()
+            currency_list = yen_list
+            currency_unit = '엔'
+            page = "exchange/exchange_yen.html"
+            print("엔")
         else:
             print("잘못된 화폐단위입니다.")
 
@@ -33,10 +39,13 @@ class ExchangeService:
       
         currency_dict = self.get_currency_dict(change, currency_list)
         self.get_print(currency_dict)
-        print("🐕",currency_unit)
         exchange.result =  self.format_currency_count(currency_dict, currency_unit)
+        print(f"🐕{currency_unit}")
+        print(f"🐶{currency_list}")
+        print(f"😽{currency_dict}")
+
         exchange.page = page    
-         
+
         return exchange
 
     def get_print(self, currency_dict):
@@ -90,3 +99,19 @@ class ExchangeService:
                         Doller_5, Doller_2, Doller_1]
                     
         return doller_list
+    
+    def get_yen_list(self):
+        yen_10000 = 100000
+        yen_5000 = 5000
+        yen_1000 = 1000
+        yen_500 = 500
+        yen_100 = 100
+        yen_50 = 50
+        yen_10 = 10
+        yen_5 = 5
+        yen_1 = 1
+
+        yen_list = [yen_10000, yen_5000, yen_1000, yen_500,
+                        yen_100, yen_50, yen_10, yen_5, yen_1]
+                    
+        return yen_list
