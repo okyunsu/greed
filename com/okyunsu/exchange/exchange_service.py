@@ -44,7 +44,7 @@ class ExchangeService:
         print(f"🐶{currency_list}")
         print(f"😽{currency_dict}")
 
-        exchange.page = page    
+        exchange.page = page
 
         return exchange
 
